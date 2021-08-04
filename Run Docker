@@ -1,0 +1,2 @@
+$ curl -sSL https://raw.githubusercontent.com/jack-Soluci0N/odoo-soluci-ON/main/docker-compose.yml?token=AS5SPRDNRIMEYUXUBQC2243BBMTE2 > docker-compose.yml
+$ docker-compose up -d
