@@ -3,7 +3,7 @@ services:
   web:
     image: odoo:14.0
     depends_on:
-      - db
+      - db_test1
     ports:
       - "80:8069"
       - "447:8071"
@@ -11,7 +11,7 @@ services:
       - odoo-web-data:/var/lib/odoo
       - /srv/odoo/test/config:/etc/odoo
       - /srv/odoo/test/addons:/mnt/extra-addons
-  db:
+  db_test1:
     image: postgres:latest
     environment:
       - POSTGRES_DB=postgres
@@ -19,7 +19,30 @@ services:
       - POSTGRES_USER=odoo
       - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
-      - odoo-db-data:/var/lib/postgresql/data
+      - odoo-db_test1:-data:/var/lib/postgresql/data
+      
+  web_test:
+    image: odoo:14.0
+    depends_on:
+      - db_test2
+    ports:
+      - "81:8069"
+      
+    volumes:
+      - odoo-web_test-data:/var/lib/odoo
+      - /srv/odoo/test/config:/etc/odoo
+      - /srv/odoo/test/addons:/mnt/extra-addons
+  db_test2:
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - odoo-db_test2:-data:/var/lib/postgresql/data
 volumes:
   odoo-web-data:
-  odoo-db-data:
+  odoo-db_test1:-data:
+  doo-web_test-data:
+  odoo-db_test2:
