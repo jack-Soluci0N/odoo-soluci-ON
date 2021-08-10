@@ -3,7 +3,7 @@ services:
   web:
     image: odoo:14.0
     depends_on:
-      - db
+      - mysoluci-0ndb
     ports:
       - "80:8069"
       - "447:8071"
@@ -11,15 +11,12 @@ services:
       - odoo-web-data:/var/lib/odoo
       - /srv/soluci-0n/config:/etc/odoo
       - /srv/soluci-0n/addons:/mnt/extra-addons
-    environment:
-      - PASSWORD_FILE=/run/secrets/postgresql_password
-    secrets:
-      - postgresql_password
-  db:
-    image: postgres:13
+    
+  mysoluci-0ndb:
+    image: postgres:latest
     environment:
       - POSTGRES_DB=postgres
-      - POSTGRES_PASSWORD_FILE=/run/secrets/postgresql_password
+      - POSTGRES_PASSWORD=Jack123
       - POSTGRES_USER=odoo
       - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
@@ -30,6 +27,3 @@ volumes:
   odoo-web-data:
   odoo-db-data:
 
-secrets:
-  postgresql_password:
-    file: odoo_pg_pass
